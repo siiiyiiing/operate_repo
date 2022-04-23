@@ -1,22 +1,4 @@
 pipeline {
-agent any
-stages {
-stage('21051233 Stage One') {
-steps {
-echo '21051233 Start of Pipeline'
-}
-}
-stage('21051233 Stage Two') {
-steps {
-input('Push changes to Production?')
-}
-}
-stage('21051233 Stage Three') {
-when {
-not {
-branch "Stage 3 Not Completed - 21051233"
-}
-pipeline {
       agent any
       stages {
           stage('21051233 Stage One') {
