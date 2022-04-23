@@ -1,57 +1,70 @@
 pipeline {
+agent any
+stages {
+stage('21051233 Stage One') {
+steps {
+echo '21051233 Start of Pipeline'
+}
+}
+stage('21051233 Stage Two') {
+steps {
+input('Push changes to Production?')
+}
+}
+stage('21051233 Stage Three') {
+when {
+not {
+branch "Stage 3 Not Completed - 21051233"
+}
+pipeline {
       agent any
       stages {
-          stage('One') {
+          stage('21051233 Stage One') {
           steps {
-            echo 'Begin of Pipeline: Stage one completes'
+            echo '21051233 Start of Pipeline'
           }
           }
-          stage('Two') {
+          stage('21051233 Stage Two') {
           steps {
-            input('Do you want to update to Development container?')
+            input('Push changes to Production?')
           }
           }
-          stage('Three') {
+          stage('21051233 Stage Three') {
           when {
                 not {
-                    branch "Development NOT updated"
+                    branch "Stage 3 Not Completed - 21051233"
                 }
           }
           steps {
                  sh '''#!/bin/bash
-                 targets=puppetclient1;
-                 locate_script='/testdir/work/devops_repo/script_to_run';
+                 targets=websvr_21051233;
+                 locate_script='/21051233/script_dir/operate_repo/21051222_script';
                  docker cp $locate_script $targets://$locate_script;
                  bolt script run $locate_script -t $targets -u clientadm -p user123 --no-host-key-check --run-as root;
                  '''
-                 echo "Development container updated"
+                 echo "Stage 3 Completed - 21051233"
           }
           }
-          stage('Four') {
-          steps {
-            input('Do you want to update to Production container: Proceed to Production')
-                
-          }
-          }
-          stage('Five') {
+          stage('21051233 Stage Four') {
           when {
                 not {
-                    branch "Production NOT updated"
+                    branch "Production website tested not working"
                 }
           }
           steps {
-          sh '''#!/bin/bash
-                 targets=puppetclient2;
-                 locate_script='/testdir/work/devops_repo/script_to_run';
+                 sh '''#!/bin/bash
+                 targets=websvr_21051233_2;
+                 locate_script='/21051233/script_dir/operate_repo/21051233_script';
                  docker cp $locate_script $targets://$locate_script;
                  bolt script run $locate_script -t $targets -u clientadm -p user123 --no-host-key-check --run-as root;
                  '''
-                 echo "Production container updated"
+                 echo "Production website tested working"
           }
           }
-          stage('Completed updating Operation') {
+          
+          stage('21051233 Stage Five') {
           steps {
-            echo 'Completed updating to Production Container'
+            echo 'Production website is updated successfully'
           }
           }
       }
